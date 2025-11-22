@@ -3,349 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Users Data Management</title>
+  <title>File Management</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary: #4361ee;
-      --primary-dark: #3a56d4;
-      --secondary: #7209b7;
-      --light: #f8f9fa;
-      --dark: #212529;
-      --gray: #6c757d;
-      --gray-light: #e9ecef;
-      --success: #4bb543;
-      --danger: #dc3545;
-      --warning: #ffc107;
-      --border-radius: 8px;
-      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s ease;
-    }
+  <link rel="stylesheet" href="../css/main.css">
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      min-height: 100vh;
-      padding: 30px 20px;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .header h1 {
-      color: var(--dark);
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    .header-info {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
-
-    .search-box {
-      position: relative;
-    }
-
-    .search-box input {
-      padding: 10px 15px 10px 40px;
-      border: 1px solid var(--gray-light);
-      border-radius: var(--border-radius);
-      width: 250px;
-      font-size: 0.9rem;
-      transition: var(--transition);
-    }
-
-    .search-box input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-    }
-
-    .search-box i {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--gray);
-    }
-
-    .card {
-      background-color: white;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      overflow: hidden;
-    }
-
-    .card-header {
-      background: linear-gradient(to right, var(--primary), var(--secondary));
-      color: white;
-      padding: 15px 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .card-header h2 {
-      font-size: 1.3rem;
-      font-weight: 600;
-    }
-
-    .card-header-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.9rem;
-    }
-
-    .table-container {
-      overflow-x: auto;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    thead {
-      background-color: var(--light);
-    }
-
-    th {
-      padding: 15px 12px;
-      text-align: left;
-      font-weight: 600;
-      color: var(--dark);
-      border-bottom: 2px solid var(--gray-light);
-      position: relative;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    th:hover {
-      background-color: var(--gray-light);
-    }
-
-    th i {
-      margin-left: 5px;
-      color: var(--gray);
-      font-size: 0.8rem;
-    }
-
-    td {
-      padding: 12px;
-      border-bottom: 1px solid var(--gray-light);
-      color: var(--dark);
-    }
-
-    tbody tr {
-      transition: var(--transition);
-    }
-
-    tbody tr:hover {
-      background-color: rgba(67, 97, 238, 0.05);
-    }
-
-    .file-cell {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .file-preview {
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--light);
-      color: var(--primary);
-      font-size: 1.2rem;
-    }
-
-    .file-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .link-cell a {
-      color: var(--primary);
-      text-decoration: none;
-      transition: var(--transition);
-    }
-
-    .link-cell a:hover {
-      text-decoration: underline;
-    }
-
-    .copy-cell {
-      text-align: center;
-    }
-
-    .date-cell {
-      white-space: nowrap;
-    }
-
-    .empty-state {
-      padding: 40px 20px;
-      text-align: center;
-      color: var(--gray);
-    }
-
-    .empty-state i {
-      font-size: 3rem;
-      margin-bottom: 15px;
-      color: var(--gray-light);
-    }
-
-    .pagination {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px;
-      border-top: 1px solid var(--gray-light);
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .pagination-info {
-      color: var(--gray);
-      font-size: 0.9rem;
-    }
-
-    .pagination-controls {
-      display: flex;
-      gap: 5px;
-    }
-
-    .pagination-btn {
-      padding: 8px 12px;
-      background-color: white;
-      border: 1px solid var(--gray-light);
-      border-radius: 4px;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .pagination-btn:hover:not(:disabled) {
-      background-color: var(--light);
-    }
-
-    .pagination-btn.active {
-      background-color: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .pagination-btn:disabled {
-      color: var(--gray-light);
-      cursor: not-allowed;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-
-    .badge-primary {
-      background-color: rgba(67, 97, 238, 0.1);
-      color: var(--primary);
-    }
-
-    .badge-success {
-      background-color: rgba(75, 181, 67, 0.1);
-      color: var(--success);
-    }
-
-    @media (max-width: 768px) {
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      
-      .header-info {
-        width: 100%;
-        justify-content: space-between;
-      }
-      
-      .search-box input {
-        width: 200px;
-      }
-      
-      th, td {
-        padding: 10px 8px;
-        font-size: 0.9rem;
-      }
-      
-      .card-header {
-        padding: 15px 20px;
-      }
-    }
-
-    @media (max-width: 576px) {
-      body {
-        padding: 15px 10px;
-      }
-      
-      .header h1 {
-        font-size: 1.5rem;
-      }
-      
-      .search-box input {
-        width: 180px;
-      }
-      
-      .pagination {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
-      <h1><i class="fas fa-users"></i> Users Data Management</h1>
+      <h1><i class="fas fa-users"></i> Youth File Management</h1>
       <div class="header-info">
         <div class="search-box">
           <i class="fas fa-search"></i>
           <input type="text" id="searchInput" placeholder="Search users...">
         </div>
         <div class="total-users">
-          <span class="badge badge-primary">Total: <span id="totalCount">0</span> users</span>
+          <span class="badge badge-primary">Total Print: <span id="totalCount">0</span> users</span>
         </div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <h2><i class="fas fa-table"></i> All Users Data</h2>
+        <h2><i class="fas fa-table"></i> All Print</h2>
         <div class="card-header-info">
           <span>Last updated: <span id="lastUpdated">Just now</span></span>
         </div>
@@ -358,19 +38,24 @@
               <th data-sort="name">Name <i class="fas fa-sort"></i></th>
               <th data-sort="link">Link <i class="fas fa-sort"></i></th>
               <th data-sort="copy">Copy <i class="fas fa-sort"></i></th>
-              <th>File</th>
               <th data-sort="createdAt">Created At <i class="fas fa-sort"></i></th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody id="tableBody">
             <!-- Data will be inserted here -->
+            <tr class="loading">
+              <td colspan="5">
+                <div class="spinner"></div>
+              </td>
+            </tr>
           </tbody>
         </table>
         
         <div id="emptyState" class="empty-state" style="display: none;">
           <i class="fas fa-inbox"></i>
-          <h3>No users found</h3>
-          <p>There are no users to display at the moment.</p>
+          <h3>No File Found</h3>
+          <p>There are no FIle Fount at the moment.</p>
         </div>
       </div>
 
@@ -389,129 +74,54 @@
     </div>
   </div>
 
-  <script>
-    // Sample data for demonstration
+  <!-- Edit User Modal -->
+  <div class="modal" id="userModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Edit User</h3>
+        <button class="close-btn" id="closeModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="userForm">
+          <input type="hidden" id="userIdInput">
+          <div class="form-group">
+            <label for="userNameInput">Name *</label>
+            <input type="text" id="userNameInput" required>
+          </div>
+          <div class="form-group">
+            <label for="userLinkInput">Link</label>
+            <input type="url" id="userLinkInput" placeholder="https://example.com">
+          </div>
+          <div class="form-group">
+            <label for="userCopyInput">Copy Text</label>
+            <textarea id="userCopyInput" placeholder="Enter text to copy..."></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="saveBtn">Update User</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
+  <!-- Delete Confirmation Modal -->
+  <div class="modal" id="deleteModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Confirm Delete</h3>
+        <button class="close-btn" id="closeDeleteModalBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this user? This action cannot be undone.</p>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    // DOM elements
-    const tableBody = document.getElementById('tableBody');
-    const searchInput = document.getElementById('searchInput');
-    const totalCount = document.getElementById('totalCount');
-    const emptyState = document.getElementById('emptyState');
-    const lastUpdated = document.getElementById('lastUpdated');
-    const startIndex = document.getElementById('startIndex');
-    const endIndex = document.getElementById('endIndex');
-    const totalRecords = document.getElementById('totalRecords');
-
-    // Initialize the table with sample data
-    function initializeTable() {
-      renderTable(sampleData);
-      updateTableInfo(sampleData.length);
-      updateLastUpdated();
-    }
-
-    // Render table rows
-    function renderTable(data) {
-      if (data.length === 0) {
-        tableBody.innerHTML = '';
-        emptyState.style.display = 'block';
-        return;
-      }
-      
-      emptyState.style.display = 'none';
-      
-      tableBody.innerHTML = data.map(item => `
-        <tr>
-          <td>${item.name}</td>
-          <td class="link-cell">
-            ${item.link ? `<a href="${item.link}" target="_blank"><i class="fas fa-external-link-alt"></i> View Link</a>` : 'N/A'}
-          </td>
-          <td class="copy-cell">
-            <span class="badge badge-success">${item.copy}</span>
-          </td>
-          <td class="file-cell">
-            <div class="file-preview">
-              ${getFileIcon(item.file)}
-            </div>
-            <span>${item.file}</span>
-          </td>
-          <td class="date-cell">${formatDate(item.createdAt)}</td>
-        </tr>
-      `).join('');
-    }
-
-    // Get appropriate file icon
-    function getFileIcon(filename) {
-      if (!filename) return '<i class="far fa-file"></i>';
-      
-      const ext = filename.split('.').pop().toLowerCase();
-      if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg'].includes(ext)) {
-        return '<i class="far fa-file-image"></i>';
-      } else if (['pdf'].includes(ext)) {
-        return '<i class="far fa-file-pdf"></i>';
-      } else if (['doc', 'docx'].includes(ext)) {
-        return '<i class="far fa-file-word"></i>';
-      } else if (['xls', 'xlsx'].includes(ext)) {
-        return '<i class="far fa-file-excel"></i>';
-      } else if (['ppt', 'pptx'].includes(ext)) {
-        return '<i class="far fa-file-powerpoint"></i>';
-      } else if (['zip', 'rar', '7z'].includes(ext)) {
-        return '<i class="far fa-file-archive"></i>';
-      } else {
-        return '<i class="far fa-file"></i>';
-      }
-    }
-
-    // Format date for display
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-      return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-    }
-
-    // Update table information
-    function updateTableInfo(count) {
-      totalCount.textContent = count;
-      totalRecords.textContent = count;
-      startIndex.textContent = count > 0 ? 1 : 0;
-      endIndex.textContent = count;
-    }
-
-    // Update last updated time
-    function updateLastUpdated() {
-      const now = new Date();
-      lastUpdated.textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-    }
-
-    // Search functionality
-    searchInput.addEventListener('input', function() {
-      const searchTerm = this.value.toLowerCase();
-      if (searchTerm === '') {
-        renderTable(sampleData);
-        updateTableInfo(sampleData.length);
-        return;
-      }
-      
-      const filteredData = sampleData.filter(item => 
-        item.name.toLowerCase().includes(searchTerm) ||
-        item.link.toLowerCase().includes(searchTerm) ||
-        item.file.toLowerCase().includes(searchTerm)
-      );
-      
-      renderTable(filteredData);
-      updateTableInfo(filteredData.length);
-    });
-
-    // Sort functionality
-    document.querySelectorAll('th[data-sort]').forEach(header => {
-      header.addEventListener('click', function() {
-        const sortKey = this.getAttribute('data-sort');
-        // In a real implementation, this would sort the data
-        console.log(`Sorting by ${sortKey}`);
-      });
-    });
-
-    // Initialize the table when page loads
-    document.addEventListener('DOMContentLoaded', initializeTable);
-  </script>
+  <script type="module" src="../js/main.js"></script>
 </body>
 </html>
