@@ -1,29 +1,42 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Firebase Form</title>
+  <title>Print For School</title>
+  <link rel="stylesheet" href="./css/style.css">
+
 </head>
 <body>
-
-  <form id="userForm" enctype="multipart/form-data">
-
-    <input type="text" id="name" placeholder="Enter name" required>
+  <div class="container">
+    <h1>YOUTH PRINT FILES</h1>
     
-    <input type="text" id="link" placeholder="Enter Link">
-
-    <input type="file" id="file" accept="image/*,application/pdf">
-
-    <input type="number" id="copy" placeholder="How many Copies">
-
-    <button type="submit">Save</button>
-  </form>
-
-  <p id="message"></p>
-
-  <!-- Load save.js (this will also load firebase.js) -->
+    <form id="userForm">
+      <div class="form-group">
+        <label for="name" class="required">Name</label>
+        <input type="text" id="name" placeholder="Enter your full name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="link">Website Link</label>
+        <input type="text" id="link" placeholder="Enter your website or profile link">
+      </div>
+      
+      <div class="form-group">
+        <label for="copy">Number of Copies</label>
+        <input type="number" id="copy" placeholder="How many copies do you need?" min="1" max="100">
+      </div>
+      
+      <button type="submit" id="submitBtn">Save Information</button>
+    </form>
+    
+    <p id="message"></p>
+    
+    <div class="form-footer">
+      <p>Na save nani ang File.</p>
+    </div>
+  </div>
   <script type="module" src="./js/save.js"></script>
-
 </body>
 </html>
