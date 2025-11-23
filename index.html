@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Print For School</title>
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="./css/style.css">
 
 </head>
@@ -38,5 +39,45 @@
     </div>
   </div>
   <script type="module" src="./js/save.js"></script>
+  <script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('./service-worker.js')
+          .then(() => console.log('✅ Service Worker Registered'))
+          .catch(err => console.log('❌ SW Registration Failed:', err));
+      });
+    }
+
+    // Show "Install App" button when available
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+
+      const btn = document.createElement('button');
+      btn.textContent = '📲 Download App';
+      btn.style.position = 'fixed';
+      btn.style.bottom = '20px';
+      btn.style.right = '20px';
+      btn.style.padding = '12px 20px';
+      btn.style.background = '#008080';
+      btn.style.color = 'white';
+      btn.style.border = 'none';
+      btn.style.borderRadius = '8px';
+      btn.style.cursor = 'pointer';
+      document.body.appendChild(btn);
+
+      btn.addEventListener('click', async () => {
+        btn.style.display = 'none';
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log('User choice:', outcome);
+        deferredPrompt = null;
+      });
+    });
+  </script>
+
 </body>
 </html>
