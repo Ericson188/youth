@@ -158,3 +158,53 @@
       font-size: 24px;
     }
   }
+
+  /* x icon style */
+
+  .form-group {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 10px 35px 10px 12px; /* space for the ✖ */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border 0.2s, box-shadow 0.2s;
+  }
+
+  .form-group input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 4px rgba(74, 144, 226, 0.4);
+    outline: none;
+  }
+
+  .form-group .clear-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-weight: bold;
+    color: #aaa;
+    font-size: 16px;
+    transition: color 0.2s;
+    user-select: none;
+    margin-top: 11px;
+  }
+
+  .form-group .clear-btn:hover {
+    color: #555;
+  }
